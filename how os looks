@@ -1,0 +1,13 @@
+Linux OS Structure (Very Simple)
+/
+├── boot/        → kernel, initramfs
+├── bin/         → basic commands (ls, cp)
+├── sbin/        → system commands
+├── lib/         → libraries
+├── etc/         → configuration files
+├── usr/         → applications & tools
+├── var/         → logs, data
+├── home/        → user files
+
+
+👉 All of this together = Operating System
