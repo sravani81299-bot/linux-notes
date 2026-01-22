@@ -1,0 +1,34 @@
+“OS is a collection of many files & packages”
+Linux does not have a single OS package file. The operating system is composed of multiple components such as the kernel, libraries, system utilities, configuration files, and services stored as files on disk.
+
+
+linux booting process is a sequence of events that occure from the moment you power on the system until the operating system is fully loaded and ready for use....
+step1:
+Power ON (Switch On)
+You press the power button
+Electricity reaches the system
+CPU wakes up and looks for instructions
+step2:
+bios is firmware
+BIOS is a small program stored on the motherboard
+It does:
+Checks hardware (RAM, keyboard, disk) → POST
+Finds the bootable disk (HDD/SSD)
+step3:
+A bootloader is a program that loads the operating system into memory when the computer starts.
+The bootloader is stored in the MBR for BIOS systems
+The bootloader loads only the kernel because the kernel is required to control hardware and load other OS components dynamically. Loading the entire OS would be inefficient and unnecessary.
+Bootloader (GRUB)
+BIOS/UEFI loads the bootloader
+In Linux, this is usually GRUB
+GRUB:
+Shows OS options (if multiple)
+Loads the Linux kernel into memory
+step4:
+Kernel is the core of Linux
+Linux Kernel----after kernel is loaded into the memory
+it Controls CPU, memory, devices
+Detects hardware
+Mounts the root filesystem
+step5:
+systemd is the init system started by the kernel. It initializes the system by starting required services and then provides either a command-line login for servers or a graphical login for desktop systems.
