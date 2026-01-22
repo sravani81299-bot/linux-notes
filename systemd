@@ -1,0 +1,243 @@
+1️⃣ First, what problem does systemd solve?
+
+After Linux kernel starts, the system needs to:
+
+Start networking
+
+Start SSH
+
+Start Docker
+
+Start cron jobs
+
+Start login screen / terminal
+
+Keep services running
+
+Restart services if they crash
+
+👉 Someone must manage all this
+
+That “someone” is systemd.
+
+2️⃣ What exactly is systemd?
+Simple definition:
+
+systemd is the first program started by the kernel, and it manages the entire system.
+
+It starts services
+
+It stops services
+
+It monitors services
+
+It restarts failed services
+
+It handles boot order
+
+📌 systemd = system manager
+
+3️⃣ Where does systemd start in the boot process?
+
+Boot flow (simplified):
+
+Power ON
+   ↓
+BIOS / UEFI
+   ↓
+Bootloader (GRUB)
+   ↓
+Linux Kernel
+   ↓
+systemd   ← ⭐ HERE
+   ↓
+Login screen / terminal
+
+
+👉 After the kernel is ready, it hands control to systemd.
+
+4️⃣ What is systemd responsible for?
+
+Think of systemd as a manager in an office 👔
+
+systemd responsibilities:
+Task	Example
+Start services	ssh, docker, nginx
+Stop services	shutdown/reboot
+Restart services	restart nginx if it crashes
+Dependency handling	start network before ssh
+Parallel startup	start many services at once
+Logging	using journalctl
+5️⃣ What is a “service” in systemd?
+Simple meaning:
+
+A service is a program that runs in the background.
+
+Examples:
+
+sshd → allows SSH login
+
+docker → runs containers
+
+nginx → web server
+
+kubelet → Kubernetes node agent
+
+In systemd, services are defined using unit files.
+
+6️⃣ What is a systemd unit?
+Unit = configuration file
+
+systemd manages different types of units:
+
+Unit Type	Purpose
+.service	background services
+.target	group of services
+.mount	mount points
+.socket	socket-based activation
+.timer	scheduled jobs (like cron)
+
+👉 Most important for now: .service and .target
+
+7️⃣ systemd service file (simple example)
+
+Example: SSH service
+
+📍 Location:
+
+/usr/lib/systemd/system/sshd.service
+
+
+📄 Content (simplified):
+
+[Unit]
+Description=OpenSSH Server
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/sshd
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+Explain line by line:
+[Unit]
+
+Description → human-readable name
+
+After=network.target → start SSH after network
+
+[Service]
+
+ExecStart → command to start service
+
+Restart=always → restart if it crashes
+
+[Install]
+
+WantedBy=multi-user.target → start at system boot
+
+8️⃣ What is a target?
+Target = group of services
+
+Targets define system state.
+
+Common targets:
+
+Target	Meaning
+multi-user.target	Server mode (CLI)
+graphical.target	Desktop mode (GUI)
+rescue.target	Single-user rescue
+shutdown.target	System shutdown
+
+👉 When systemd reaches a target, it starts all services linked to it.
+
+9️⃣ How systemd starts services (dependency logic)
+
+Example:
+
+network.target
+   ↓
+sshd.service
+   ↓
+user login
+
+
+systemd ensures:
+
+Network is ready
+
+Then SSH starts
+
+Then users can log in
+
+🚀 No guessing, no race conditions
+
+🔟 systemctl – how we control systemd
+
+systemctl = command to talk to systemd
+
+Common commands:
+systemctl status nginx
+systemctl start nginx
+systemctl stop nginx
+systemctl restart nginx
+systemctl enable nginx
+systemctl disable nginx
+
+Meaning:
+
+start → start now
+
+enable → start on boot
+
+status → health check
+
+1️⃣1️⃣ How systemd handles failures
+
+If a service crashes:
+
+systemd detects it
+
+Restarts it automatically (if configured)
+
+Logs the failure
+
+Logs:
+
+journalctl -u nginx
+
+
+👉 This is very important for production & DevOps.
+
+1️⃣2️⃣ systemd vs old init (why systemd is better)
+Old init	systemd
+Starts services one by one	Parallel startup
+No dependency handling	Dependency aware
+Weak logging	Powerful logging
+Slow boot	Fast boot
+1️⃣3️⃣ Real-world DevOps example
+When EC2 boots:
+
+Kernel starts
+
+systemd starts
+
+systemd:
+
+Starts networking
+
+Starts Docker
+
+Starts kubelet
+
+Starts monitoring agent
+
+Server becomes ready
+
+👉 If Docker fails → systemd restarts it automatically
+
+1️⃣4️⃣ One-line summary (remember this)
+
+systemd is the boss process (PID 1) that starts, stops, monitors, and manages everything on a Linux system after the kernel boots.
