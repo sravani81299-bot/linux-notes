@@ -34,6 +34,11 @@ Example: /home/kishlay, /home/kv
 Devices like USBs, CDs, and pen drives are mounted under /media. For example, when a CD-ROM is inserted (appeared in FHS-2.3), its details will appear here.
 Temporary mount directory for removable devices.
 Examples: /media/cdrom for CD-ROM; /media/floppy for floppy drives; /media/cdrecorder for CD writer
+Used by the system to automatically mount removable media.
+Examples
+USB drives
+External HDD
+CD/DVD
 
 /tmp : 
 Programs create temporary files during execution, and these are stored in /tmp. These files are deleted automatically after the program finishes or when the system is restarted.
@@ -58,14 +63,6 @@ Kernel won’t load drivers
 System won’t boot ❌
 📌 Analogy:
 /lib is like engine oil — not visible, but without it nothing works
-
-/media — Auto-mounted Devices
-What it is
-Used by the system to automatically mount removable media.
-Examples
-USB drives
-External HDD
-CD/DVD
 
 /srv = “service data”
 It is a directory meant to store data that is served by system services like:
