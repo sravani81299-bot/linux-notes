@@ -241,3 +241,6 @@ Server becomes ready
 1️⃣4️⃣ One-line summary (remember this)
 
 systemd is the boss process (PID 1) that starts, stops, monitors, and manages everything on a Linux system after the kernel boots.
+
+After the kernel loads, systemd starts and activates the system’s default target (such as multi-user.target). The target itself does not run a process; 
+instead, it groups and triggers multiple services and other units needed to bring the system to an operational state.
