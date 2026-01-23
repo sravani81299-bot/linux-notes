@@ -1,0 +1,106 @@
+linux file system
+
+/ --> If you look at the file system graphically, you’ll see all other directories branching from this root directory.
+Every single file and directory start from the root directory.
+The only root user has the right to write under this directory.
+/root is the root user’s home directory, which is not the same as /
+Only the root user has permission to modify contents inside this directory. Regular users cannot make changes here. 
+For example, if you attempt to create a file in / as a non-root user, you’ll encounter a "Permission Denied" error.
+
+/bin : 
+The /bin directory contains essential commands and binaries needed by all users, including cp, ls, ssh, and kill. These commands are universally available across user types.
+Contains binary executables.
+Common linux commands you need to use in single-user modes are located under this directory.
+Commands used by all the users of the system are located here e.g. ps, ls, ping, grep, cp 
+
+/boot :
+This directory stores all files required for booting the system. It includes the GRUB bootloader configuration and essential kernel files that are loaded during startup. 
+Kernel initrd, vmlinux, grub files are located under /boot
+Example: initrd.img-2.6.32-24-generic, vmlinuz-2.6.32-24-generic
+
+ /dev :
+Device files in Linux are stored in the /dev directory. These are special files that act as interfaces between hardware and software. Device files are of two types: 
+block devices (e.g., hard drives) and character devices (e.g., microphones and speakers). Examples include /dev/sda1 for disk partitions.
+These include terminal devices, usb, or any device attached to the system.
+Example: /dev/tty1, /dev/usbmon0
+
+/home :
+Every non-root user has a personal directory inside /home. For example, if your username is anshu, your personal directory would be /home/anshu. 
+Each user can create, delete, or modify files only in their own home directory and cannot access others’ home directories.
+Home directories for all users to store their personal files, containing saved files, personal settings, etc..
+Example: /home/kishlay, /home/kv
+
+/media:
+Devices like USBs, CDs, and pen drives are mounted under /media. For example, when a CD-ROM is inserted (appeared in FHS-2.3), its details will appear here.
+Temporary mount directory for removable devices.
+Examples: /media/cdrom for CD-ROM; /media/floppy for floppy drives; /media/cdrecorder for CD writer
+
+/tmp : 
+Programs create temporary files during execution, and these are stored in /tmp. These files are deleted automatically after the program finishes or when the system is restarted.
+Directory that contains temporary files created by system and users.
+Files under this directory are deleted when the system is rebooted.
+
+/sbin:
+the /sbin directory stands for system binaries. It contains essential executable programs that are primarily used for system administration, 
+maintenance, and booting, and are generally intended for the root user.
+/sbin holds commands necessary for booting the system, restoring, recovering, and/or repairing the system, often before the /usr filesystem is mounted.
+
+/lib/ : Necessary libraries for booting the system and running basic commands in the root filesystem (for binaries in /bin or /sbin).
+/lib contains shared libraries needed by:
+/bin
+/sbin
+Kernel modules
+Think of libraries as support files that binaries depend on.
+Why it’s critical
+If /lib is missing:
+Commands won’t run
+Kernel won’t load drivers
+System won’t boot ❌
+📌 Analogy:
+/lib is like engine oil — not visible, but without it nothing works
+
+/media — Auto-mounted Devices
+What it is
+Used by the system to automatically mount removable media.
+Examples
+USB drives
+External HDD
+CD/DVD
+
+/srv = “service data”
+It is a directory meant to store data that is served by system services like:
+Web servers (Apache, Nginx)
+FTP servers
+File-sharing services
+Git repositories
+Application services
+📌 Think of /srv as:
+“This data is meant to be accessed by users or clients over the network.”
+
+/proc is a virtual (pseudo) filesystem created by the kernel.
+Created dynamically at system boot
+Destroyed automatically at system shutdown
+Not stored on disk (exists only in RAM)
+If you reboot → /proc is recreated fresh.
+/proc = kernel data presented as text
+Process Information in /proc
+The /proc filesystem contains real-time information about currently running processes.
+Each running process is represented by a directory
+The directory name equals the Process ID (PID)
+/proc/1
+Listing /proc contents
+ls -l /proc
+This command lists:
+Files
+Directories
+Permissions
+Ownership
+Size (mostly 0 because files are virtual)
+Last modification time
+📌 This information helps in:
+Monitoring system state
+Debugging performance issues
+Troubleshooting running processes
+
+/opt
+is used to install optional or third-party applications separately from core OS files, keeping the system clean and manageable.
