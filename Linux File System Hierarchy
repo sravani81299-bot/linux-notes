@@ -101,3 +101,41 @@ Troubleshooting running processes
 
 /opt
 is used to install optional or third-party applications separately from core OS files, keeping the system clean and manageable.
+
+/mnt 
+is a standard Linux directory used for temporarily mounting filesystems manually, mainly by system administrators.
+
+/lib
+It contains essential shared libraries and kernel modules needed for the system to work, especially during boot.
+What is a Library?
+A library is a collection of pre-written code that programs use instead of writing everything from scratch.
+Example:
+If many programs need to print text, they all use the same library function.
+Why /lib is Important?
+Needed for system boot
+Needed for basic system commands
+Used by shell and init/systemd
+Without /lib, Linux cannot start properly
+Think of /lib as:
+“Engine parts of the Linux system”
+
+/usr:
+contains system-wide user commands, admin tools, libraries, shared data, and development files required for normal system operation.
+Key contents of /usr
+/usr/bin: Contains user commands (binaries) not essential for booting (e.g., zip, curl).
+/usr/sbin: Contains non-essential system administration binaries, requiring root privileges.
+/usr/lib: Libraries needed by programs in /usr/bin and /usr/sbin.
+/usr/share: Architecture-independent data, like documentation, icons, and fonts.
+/usr/include: Header files for compiling programs. 
+
+/run - Stores volatile runtime data such as process IDs and system information.
+
+/sys - A virtual file system used to interact with and manage hardware devices and kernel information.
+
+/var = variable data
+It stores files that change frequently while the system is running.
+stores variable data such as logs, caches, mail, and runtime files that change during normal system operation.
+Used for:
+Debugging issues
+Security audits
+Troubleshooting services
