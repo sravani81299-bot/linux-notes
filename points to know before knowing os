@@ -1,0 +1,217 @@
+Kernel — The Boss of the System 🧠
+What is the Kernel?
+
+The kernel is the heart of Linux.
+It directly talks to hardware and controls everything.
+
+👉 Without the kernel, Linux cannot exist.
+
+What the kernel does:
+
+Talks to CPU, RAM, disk, network, devices
+
+Manages processes (which program runs when)
+
+Manages memory (who gets RAM)
+
+Manages filesystems
+
+Handles hardware drivers
+
+Controls system calls (how programs request resources)
+
+Simple example:
+
+When you run:
+
+ls
+
+
+ls → asks the kernel
+
+Kernel → reads disk
+
+Kernel → returns file list
+
+📍 Kernel file location:
+
+/boot/vmlinuz-*
+
+
+💡 Kernel runs in kernel space (very powerful, very protected)
+
+2️⃣ Libraries — Helpers for Programs 📚
+What are Libraries?
+
+Libraries are pre-written code that programs reuse instead of writing everything again.
+
+👉 Programs do NOT talk to the kernel directly.
+They use libraries.
+
+Why libraries exist:
+
+Avoid rewriting common code
+
+Make programs smaller
+
+Provide standard behavior
+
+Common Linux library:
+
+glibc (GNU C Library)
+
+Example:
+
+A program wants to:
+
+Open a file
+
+Print text
+
+Use network
+
+Instead of writing kernel code, it calls:
+
+printf()
+open()
+read()
+
+
+These functions live in libraries, which then talk to the kernel.
+
+📍 Library locations:
+
+/lib
+/lib64
+/usr/lib
+/usr/lib64
+
+
+💡 Libraries run in user space
+
+3️⃣ System Utilities — Tools for Users & Admins 🛠️
+What are System Utilities?
+
+These are basic command-line tools used to manage the system.
+
+👉 They are just programs, but very important ones.
+
+Examples:
+
+File tools: ls, cp, mv, rm
+
+Process tools: ps, top, kill
+
+Disk tools: df, mount, umount
+
+Network tools: ip, ping, ss
+
+User tools: useradd, passwd
+
+📍 Utility locations:
+
+/bin
+/sbin
+/usr/bin
+/usr/sbin
+
+Flow:
+
+User → Utility → Library → Kernel → Hardware
+
+💡 Utilities are the interface between humans and Linux internals.
+
+4️⃣ Configuration Files — Settings of the System ⚙️
+What are Configuration Files?
+
+These are text files that control how programs and services behave.
+
+👉 Linux does NOT use registry like Windows
+👉 Everything is file-based
+
+Key properties:
+
+Plain text
+
+Editable
+
+Read at startup or reload time
+
+Examples:
+File	Purpose
+/etc/passwd	User accounts
+/etc/shadow	Passwords
+/etc/ssh/sshd_config	SSH settings
+/etc/fstab	Disk mount rules
+/etc/hosts	Hostname resolution
+
+📍 Main location:
+
+/etc
+
+Example:
+Port 22
+PermitRootLogin no
+
+
+This config controls SSH behavior.
+
+💡 Change config → restart service → new behavior
+
+5️⃣ Services — Background Workers 🔄
+What are Services?
+
+Services are programs that run in the background to provide functionality.
+
+👉 They start at boot or on demand
+👉 Managed by systemd
+
+Examples:
+
+sshd → remote login
+
+nginx → web server
+
+cron → scheduled jobs
+
+docker → container engine
+
+kubelet → Kubernetes node agent
+
+Service actions:
+systemctl start sshd
+systemctl stop nginx
+systemctl restart docker
+systemctl status cron
+
+
+📍 Service definitions:
+
+/usr/lib/systemd/system/
+/etc/systemd/system/
+
+Service flow:
+
+Service → Libraries → Kernel → Hardware
+
+💡 Services keep the system alive and useful
+
+🔗 How Everything Connects (Very Important)
+Example: SSH Login
+
+1️⃣ Service: sshd is running
+2️⃣ Config file: /etc/ssh/sshd_config
+3️⃣ Utility: ssh command
+4️⃣ Library: glibc handles system calls
+5️⃣ Kernel: manages process, network, memory
+6️⃣ Hardware: CPU, RAM, NIC
+
+📌 All layers work together.
+
+🧠 One-Line Summary (Interview Gold)
+Component	Role
+Kernel	Controls hardware & resources
+Libraries	Bridge between apps and kernel
+System Utilities	User/admin tools
+Configuration Files	System settings
+Services	Background system processes
