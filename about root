@@ -1,0 +1,104 @@
+1️⃣ Root Account (root user)
+
+🔹 What it is:
+The root account is the superuser in Linux.
+
+🔹 Who it is:
+
+Username: root
+
+UID: 0
+
+Has unlimited permissions
+
+🔹 What root can do:
+
+Delete system files
+
+Create / delete users
+
+Install software
+
+Start / stop services
+
+Mount disks
+
+Change permissions of any file
+
+👉 Root = Administrator of Linux
+
+Example:
+
+whoami
+# root
+
+
+⚠️ Because root is so powerful, it’s used carefully.
+
+2️⃣ / → Root Directory (VERY IMPORTANT)
+
+This is NOT the root user.
+
+🔹 / is the top-most directory in Linux
+🔹 Everything in Linux starts from /
+
+Think of / as the base of the entire file system tree 🌳
+
+Example:
+
+/
+├── bin
+├── etc
+├── home
+├── root
+├── usr
+├── var
+
+
+📌 Key point:
+
+/ is the starting point of the filesystem, not a user.
+
+3️⃣ /root → Root User’s Home Directory
+
+This is where confusion usually happens 😄
+
+🔹 /root is the home directory of the root user
+🔹 Just like:
+
+/home/sravani → your home directory
+
+/root → root user’s home directory
+
+Check:
+
+echo $HOME
+# /root   (when logged in as root)
+
+
+🔹 Only root can access /root (by default)
+
+4️⃣ Comparison Table (Crystal Clear 🧠)
+Term	Meaning
+root account	Superuser (UID 0)
+/	Root directory (top of filesystem)
+/root	Home directory of root user
+5️⃣ Simple Analogy 🏠
+
+Imagine a building:
+
+🧑 Root account → Building owner (can enter any room)
+
+🏢 / → The building itself
+
+🛏 /root → Owner’s private room
+
+🛏 /home/user → Other people’s rooms
+
+6️⃣ Common Interview Trap Question ❗
+
+❓ Is / and /root the same?
+👉 NO
+
+✔ / = filesystem base
+✔ /root = root user’s home directory
