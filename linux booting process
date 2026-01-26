@@ -30,17 +30,8 @@ Linux Kernel----after kernel is loaded into the memory
 it Controls CPU, memory, devices
 Detects hardware
 Mounts the root filesystem
-step5: Init System (systemd)
-systemd is the init system started by the kernel. It initializes the system by starting required services and then provides either a command-line login for servers or a graphical login for desktop systems.
-❓ What is systemd?
-systemd is the first user-space program started by the kernel.
-systemd becomes the manager of the entire system
-Why systemd is needed
-The kernel:
-Can talk to hardware
-Can manage memory & CPU
-❌ Cannot start services like network, SSH, GUI
-👉 systemd does that job.
+step5: there is seperate folder for systemd
+
 Step 6: Login Screen / Terminal
 After services start, systemd allows user interaction.
 This depends on whether it’s a server or desktop.
