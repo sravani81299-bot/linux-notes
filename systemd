@@ -91,11 +91,11 @@ Unit = configuration file
 systemd manages different types of units:
 
 Unit Type	Purpose
-.service	background services
-.target	group of services
-.mount	mount points
-.socket	socket-based activation
-.timer	scheduled jobs (like cron)
+.service	   background services
+.target	   group of services
+.mount	   mount points
+.socket	   socket-based activation
+.timer	   scheduled jobs (like cron)
 
 👉 Most important for now: .service and .target
 
@@ -146,10 +146,10 @@ Targets define system state.
 Common targets:
 
 Target	Meaning
-multi-user.target	Server mode (CLI)
-graphical.target	Desktop mode (GUI)
-rescue.target	Single-user rescue
-shutdown.target	System shutdown
+multi-user.target	   Server mode (CLI)
+graphical.target	   Desktop mode (GUI)
+rescue.target	      Single-user rescue
+shutdown.target	   System shutdown
 
 👉 When systemd reaches a target, it starts all services linked to it.
 
@@ -212,11 +212,12 @@ journalctl -u nginx
 👉 This is very important for production & DevOps.
 
 1️⃣2️⃣ systemd vs old init (why systemd is better)
-Old init	systemd
-Starts services one by one	Parallel startup
-No dependency handling	Dependency aware
-Weak logging	Powerful logging
-Slow boot	Fast boot
+Old init	                     systemd
+Starts services one by one	   Parallel startup
+No dependency handling	      Dependency aware
+Weak logging	               Powerful logging
+Slow boot	                  Fast boot
+
 1️⃣3️⃣ Real-world DevOps example
 When EC2 boots:
 
