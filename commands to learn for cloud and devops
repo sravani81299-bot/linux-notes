@@ -1,186 +1,333 @@
 1. Basic Linux Commands
 📁 Navigation
-pwd
-ls
-ls -l
-ls -la
-cd
-cd ..
-cd /
-cd ~
+
+pwd – Shows the current directory you are in
+
+ls – Lists files and folders
+
+ls -l – Long listing (permissions, owner, size, date)
+
+ls -la – Long listing + hidden files (. files)
+
+cd – Change directory
+
+cd .. – Move one directory up
+
+cd / – Go to root directory
+
+cd ~ – Go to user’s home directory
+
 📂 File & Directory Management
-touch file.txt
-mkdir folder
-mkdir -p folder/subfolder
-cp file1 file2
-cp -r dir1 dir2
-mv file1 file2
-rm file
-rm -r folder
-rm -rf folder
+
+touch file.txt – Create an empty file
+
+mkdir folder – Create a directory
+
+mkdir -p folder/subfolder – Create parent + child directories together
+
+cp file1 file2 – Copy file
+
+cp -r dir1 dir2 – Copy directory recursively
+
+mv file1 file2 – Rename or move file
+
+rm file – Delete file
+
+rm -r folder – Delete folder and contents
+
+rm -rf folder – Force delete (⚠ dangerous, no confirmation)
+
 📄 View File Content
-cat file
-tac file
-head file
-head -n 20 file
-tail file
-tail -f file   # live logs
-less file
-more file
+
+cat file – Display entire file
+
+tac file – Display file in reverse order
+
+head file – First 10 lines
+
+head -n 20 file – First 20 lines
+
+tail file – Last 10 lines
+
+tail -f file – Live log monitoring (very common in servers)
+
+less file – Scrollable view (recommended for large files)
+
+more file – Basic scroll view
+
 🟦 2. File Permissions & Ownership
-chmod 755 file
-chmod u+x script.sh
-chown user:user file
-chown -R user:user folder
-ls -l   # view permissions
-umask
+
+chmod 755 file – Owner: full, Group & Others: read+execute
+
+chmod u+x script.sh – Give execute permission to owner
+
+chown user:user file – Change owner and group
+
+chown -R user:user folder – Change ownership recursively
+
+ls -l – View permissions
+
+umask – Default permission setting for new files
+
 🟦 3. User & Group Management
-useradd devuser
-passwd devuser
-su - devuser
-groupadd devops
-usermod -aG devops devuser
-id devuser
-whoami
-who
-🟦 4. Disk, Storage & File System Commands
-df -h    # disk usage
-du -sh folder
-mount
-umount
-lsblk
-fdisk -l
-Archive & Compression
-tar -cvf backup.tar folder
-tar -xvf backup.tar
-gzip file
-gunzip file.gz
-zip file.zip file
-unzip file.zip
-🟦 5. Networking Commands (Important for AWS EC2 Troubleshooting)
-ifconfig
-ip addr
-ip route
-ping google.com
-curl google.com
-wget url
-nslookup domain.com
-dig domain.com
-host domain.com
-Check open ports
-netstat -tulnp
-ss -tulnp
-lsof -i :80
+
+useradd devuser – Create new user
+
+passwd devuser – Set password
+
+su - devuser – Switch user
+
+groupadd devops – Create group
+
+usermod -aG devops devuser – Add user to group
+
+id devuser – Show UID, GID, groups
+
+whoami – Current user
+
+who – Logged-in users
+
+🟦 4. Disk, Storage & File System
+
+df -h – Disk usage of mounted filesystems
+
+du -sh folder – Folder size
+
+mount – Show mounted filesystems
+
+umount – Unmount filesystem
+
+lsblk – Block devices (disk layout)
+
+fdisk -l – Disk partitions
+
+📦 Archive & Compression
+
+tar -cvf backup.tar folder – Create tar archive
+
+tar -xvf backup.tar – Extract tar
+
+gzip file – Compress
+
+gunzip file.gz – Decompress
+
+zip file.zip file – Zip file
+
+unzip file.zip – Extract zip
+
+🟦 5. Networking Commands (AWS EC2)
+
+ifconfig – Network interface details (legacy)
+
+ip addr – Modern network info
+
+ip route – Routing table
+
+ping google.com – Connectivity test
+
+curl google.com – Test HTTP response
+
+wget url – Download file
+
+nslookup domain.com – DNS lookup
+
+dig domain.com – Detailed DNS query
+
+host domain.com – Simple DNS check
+
+🔓 Check Open Ports
+
+netstat -tulnp – Listening ports (old)
+
+ss -tulnp – Faster replacement of netstat
+
+lsof -i :80 – Which process uses port 80
+
 🟦 6. Process & Resource Monitoring
-top
-htop
-free -h
-ps -ef
-kill -9 PID
-killall processname
-uptime
-vmstat
-iostat
-🟦 7. Service Management (Systemd)
-systemctl start nginx
-systemctl stop nginx
-systemctl restart nginx
-systemctl enable nginx
-systemctl disable nginx
-systemctl status nginx
-journalctl -u nginx
-journalctl -xe
+
+top – Real-time process monitoring
+
+htop – Better interactive top
+
+free -h – Memory usage
+
+ps -ef – All running processes
+
+kill -9 PID – Force kill process
+
+killall processname – Kill by name
+
+uptime – System running time
+
+vmstat – Memory & CPU stats
+
+iostat – Disk I/O stats
+
+🟦 7. Service Management (systemd)
+
+systemctl start nginx – Start service
+
+systemctl stop nginx – Stop service
+
+systemctl restart nginx – Restart
+
+systemctl enable nginx – Start on boot
+
+systemctl disable nginx – Disable on boot
+
+systemctl status nginx – Service state
+
+journalctl -u nginx – Service logs
+
+journalctl -xe – System error logs
+
 🟦 8. Package Management
-Ubuntu / Debian
-apt update
-apt upgrade
-apt install nginx
-apt remove nginx
-apt search package
-Amazon Linux / CentOS / RHEL
-yum update -y
-yum install httpd
-yum remove httpd
-yum list installed
+Ubuntu / Debian (APT)
+
+apt update – Update repo list
+
+apt upgrade – Upgrade packages
+
+apt install nginx – Install
+
+apt remove nginx – Remove
+
+apt search package – Search
+
+RHEL / Amazon Linux (YUM)
+
+yum update -y – Update system
+
+yum install httpd – Install Apache
+
+yum remove httpd – Remove
+
+yum list installed – Installed packages
+
 🟦 9. Logs (AWS EC2 Troubleshooting)
-cd /var/log
-cat /var/log/messages
-cat /var/log/secure
-journalctl -xe
-dmesg
-tail -f /var/log/nginx/error.log
-tail -f /var/log/httpd/access.log
-🟦 10. Shell Scripting Commands
-#!/bin/bash
-echo "Hello"
-VAR=value
-echo $VAR
 
-if [ condition ]; then
-   commands
-fi
+/var/log – Log directory
 
-for i in {1..5}; do
-   echo $i
-done
+messages – System logs
 
-function hello() {
-   echo "Hello"
-}
-hello
+secure – Authentication logs
+
+journalctl -xe – systemd errors
+
+dmesg – Kernel logs
+
+tail -f nginx/error.log – Nginx errors
+
+tail -f httpd/access.log – Apache access logs
+
+🟦 10. Shell Scripting
+
+#!/bin/bash – Script interpreter
+
+echo – Print output
+
+VAR=value – Variable
+
+if – Conditional logic
+
+for – Loop
+
+function – Reusable code
+
 Cron Jobs
-crontab -e
-crontab -l
-🟦 11. SSH & Keys (Critical for AWS EC2)
-ssh -i key.pem ec2-user@ip
-ssh-copy-id user@server
-scp -i key.pem file user@server:/path
-chmod 400 key.pem
-🟦 12. Git Commands (DevOps Essential)
-git init
-git clone URL
-git status
-git add .
-git commit -m "message"
-git push origin main
-git pull
-git branch
-git checkout -b feature
-git merge branch
+
+crontab -e – Edit cron
+
+crontab -l – List cron jobs
+
+🟦 11. SSH & Keys (AWS EC2)
+
+ssh -i key.pem user@ip – Login to EC2
+
+ssh-copy-id – Copy SSH key
+
+scp – Copy files over SSH
+
+chmod 400 key.pem – Secure key permissions
+
+🟦 12. Git Commands
+
+git init – Initialize repo
+
+git clone – Clone repo
+
+git status – File status
+
+git add . – Stage changes
+
+git commit – Save changes
+
+git push – Upload to remote
+
+git pull – Fetch updates
+
+git branch – List branches
+
+git checkout -b – Create branch
+
+git merge – Merge branches
+
 🟦 13. Docker Commands
-docker --version
-docker images
-docker ps
-docker ps -a
-docker pull image
-docker run image
-docker run -d -p 80:80 nginx
-docker exec -it container bash
-docker logs container
-docker stop container
-docker rm container
-docker rmi image
-🟦 14. Kubernetes (kubectl) Commands
-kubectl get pods
-kubectl get svc
-kubectl get nodes
-kubectl describe pod podname
-kubectl logs podname
-kubectl apply -f deployment.yaml
-kubectl delete -f deployment.yaml
-🟦 15. Terraform Commands
-terraform init
-terraform plan
-terraform apply
-terraform destroy
-terraform fmt
-🟦 16. Ansible Commands
-ansible all -m ping -i inventory
-ansible-playbook site.yml -i inventory
-ansible-vault encrypt file
-ansible-vault decrypt file
+
+docker images – Available images
+
+docker ps – Running containers
+
+docker ps -a – All containers
+
+docker run – Start container
+
+docker exec – Enter container
+
+docker logs – Container logs
+
+docker stop/rm – Stop & remove
+
+docker rmi – Remove image
+
+🟦 14. Kubernetes (kubectl)
+
+kubectl get pods – Pod list
+
+kubectl get svc – Services
+
+kubectl get nodes – Cluster nodes
+
+kubectl describe pod – Pod details
+
+kubectl logs – Pod logs
+
+kubectl apply/delete – Deploy/remove resources
+
+🟦 15. Terraform
+
+terraform init – Initialize
+
+terraform plan – Preview changes
+
+terraform apply – Create infra
+
+terraform destroy – Delete infra
+
+terraform fmt – Format code
+
+🟦 16. Ansible
+
+ansible -m ping – Test connectivity
+
+ansible-playbook – Run playbook
+
+ansible-vault encrypt/decrypt – Secure secrets
+
 🟦 17. Jenkins (Linux CLI)
-systemctl start jenkins
-systemctl stop jenkins
-journalctl -u jenkins
-cat /var/lib/jenkins/secrets/initialAdminPassword
+
+systemctl start/stop jenkins – Manage Jenkins
+
+journalctl -u jenkins – Jenkins logs
+
+initialAdminPassword – First login password
