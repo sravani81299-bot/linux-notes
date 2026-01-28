@@ -1,0 +1,553 @@
+Here’s a curated list of Linux interview questions that are commonly asked for Cloud & DevOps Engineer roles, organized from basics → advanced, with what the interviewer expects you to know. This aligns well with AWS, Docker, Kubernetes, and CI/CD roles.
+
+1️⃣ Linux Basics (Must-Know)
+Q1. What is Linux?
+Expected:
+Linux is an open-source Unix-like OS kernel used in servers, cloud platforms, containers, and embedded systems.
+
+Q2. Difference between Linux and Unix?
+Linux	Unix
+Open-source	Mostly proprietary
+Free	Paid
+Large community	Vendor-controlled
+Q3. What is the Linux Kernel?
+Expected:
+Core of OS responsible for:
+
+Process management
+
+Memory management
+
+Device drivers
+
+System calls
+
+Q4. What is a shell?
+Expected:
+A command-line interpreter that interacts with the kernel.
+Examples: bash, sh, zsh
+
+Q5. Common Linux directory structure
+Directory	Purpose
+/	Root
+/bin	Essential binaries
+/etc	Config files
+/var	Logs & variable data
+/home	User home dirs
+/tmp	Temporary files
+/opt	Optional software
+2️⃣ File & Directory Management
+Q6. How do you list files?
+ls -l
+ls -a
+ls -lh
+Q7. Difference between cp, mv, rm?
+cp → copy
+
+mv → move/rename
+
+rm → delete
+
+Q8. Hard link vs Soft link
+Hard Link	Soft Link
+Same inode	Different inode
+Cannot cross FS	Can cross FS
+Works if original deleted	Breaks if original deleted
+Q9. How do you find files?
+find / -name file.txt
+locate file.txt
+3️⃣ File Permissions & Ownership
+Q10. Explain Linux permissions
+r (4) – read
+
+w (2) – write
+
+x (1) – execute
+
+Example:
+
+chmod 755 file.sh
+Q11. What is umask?
+Expected:
+Default permission mask for newly created files.
+
+Q12. Difference between su and sudo
+su	sudo
+Switch user	Run command as root
+Needs root password	Needs user password
+4️⃣ Process Management (Very Important)
+Q13. What is a process?
+Expected:
+A running instance of a program.
+
+Q14. How do you check running processes?
+ps -ef
+top
+htop
+Q15. How to kill a process?
+kill PID
+kill -9 PID
+pkill process_name
+Q16. What is a daemon?
+Expected:
+Background process (e.g., sshd, cron).
+
+5️⃣ Networking (Cloud + DevOps Focus)
+Q17. How do you check IP address?
+ip a
+ifconfig
+Q18. How do you test connectivity?
+ping
+curl
+telnet
+nc
+Q19. How do you check open ports?
+netstat -tuln
+ss -tuln
+lsof -i
+Q20. What is DNS and /etc/resolv.conf?
+Expected:
+DNS resolves domain → IP
+/etc/resolv.conf stores DNS servers.
+
+6️⃣ Disk & Memory Management
+Q21. How do you check disk usage?
+df -h
+du -sh *
+Q22. What is inode?
+Expected:
+Metadata of a file (permissions, owner, size).
+
+Q23. How do you check memory?
+free -m
+top
+vmstat
+7️⃣ Package Management
+Q24. Difference between yum and apt
+yum	apt
+RHEL/CentOS	Ubuntu/Debian
+.rpm	.deb
+Q25. How do you install a package?
+yum install nginx
+apt install nginx
+8️⃣ Logs & Monitoring
+Q26. Where are logs stored?
+/var/log/
+Q27. How do you view logs?
+cat
+less
+tail -f
+journalctl
+9️⃣ Shell Scripting (DevOps Favorite)
+Q28. What is shell scripting?
+Expected:
+Automating tasks using shell commands.
+
+Q29. Simple script example
+#!/bin/bash
+echo "Hello DevOps"
+Q30. What are environment variables?
+export VAR=value
+env
+🔟 Linux + DevOps / Cloud Integration
+Q31. Why Linux is preferred in Cloud?
+✔ Lightweight
+✔ Secure
+✔ Container-friendly
+✔ Open-source
+
+Q32. How does Linux help Docker?
+Expected:
+Docker uses:
+
+Namespaces
+
+Cgroups
+
+UnionFS
+
+Q33. How do you troubleshoot a server down?
+Expected flow:
+
+Check connectivity
+
+Check CPU/memory
+
+Check disk
+
+Check logs
+
+Check services
+
+⭐ Advanced / Scenario-Based Questions
+Q34. Disk is full – what will you do?
+df -h
+du -sh /*
+clean logs
+Q35. Service not starting – steps?
+systemctl status service
+journalctl -xe
+Q36. How to run a process in background?
+command &
+nohup command &
+
+🎯 Interview Tip
+For DevOps roles, interviewers focus more on:
+
+Troubleshooting
+
+Commands
+
+Real-time scenarios
+
+Linux + Docker + Kubernetes integration
+
+🧑‍💼 Mock Interview – AWS + Linux (DevOps Engineer)
+🔹 Round 1: Linux Fundamentals
+Q1️⃣ You launched an EC2 instance but can’t SSH into it. What will you check?
+Expected Answer:
+
+Security Group → Port 22 allowed
+
+Correct key pair
+
+Correct username (ec2-user, ubuntu)
+
+Instance is running
+
+Check NACL
+
+Check route table (Internet Gateway attached)
+
+Disk not full
+
+Q2️⃣ How do you check CPU and memory usage on a Linux server?
+Answer:
+
+top
+htop
+free -m
+vmstat
+Q3️⃣ A Linux server is running slow. How do you troubleshoot?
+Answer:
+
+Check CPU → top
+
+Check memory → free -m
+
+Check disk → df -h
+
+Check IO → iostat
+
+Check logs → /var/log/
+
+Q4️⃣ Difference between kill and kill -9?
+Answer:
+
+kill → Graceful termination
+
+kill -9 → Force kill (SIGKILL)
+
+🔹 Round 2: AWS Core Services
+Q5️⃣ What happens when you type a website URL in a browser hosted on EC2?
+Answer (High-level):
+
+DNS resolves domain → IP (Route53)
+
+Request reaches Internet Gateway
+
+Security Group allows traffic
+
+Load Balancer forwards request
+
+EC2 responds
+
+Q6️⃣ Difference between Security Group and NACL?
+Security Group	NACL
+Stateful	Stateless
+Instance level	Subnet level
+Allow rules only	Allow & Deny
+Q7️⃣ What is IAM and why is it important?
+Answer:
+IAM controls who can access AWS resources using:
+
+Users
+
+Roles
+
+Policies
+
+Best practice: Use roles, not access keys
+
+🔹 Round 3: Linux + AWS Integration
+Q8️⃣ Where are application logs stored in an EC2 instance?
+Answer:
+
+/var/log/
+/var/log/messages
+/var/log/syslog
+Q9️⃣ How do you increase disk size of an EC2 instance?
+Answer:
+
+Modify EBS volume in AWS
+
+Extend filesystem:
+
+lsblk
+growpart
+resize2fs
+Q🔟 How do you make sure a service starts automatically after reboot?
+Answer:
+
+systemctl enable nginx
+🔹 Round 4: Networking (AWS + Linux)
+Q1️⃣1️⃣ How do you check open ports on Linux?
+ss -tuln
+netstat -tuln
+Q1️⃣2️⃣ What is the difference between public and private IP in AWS?
+Answer:
+
+Public IP → Internet access
+
+Private IP → Internal VPC communication
+
+Q1️⃣3️⃣ How does NAT Gateway work?
+Answer:
+
+Allows private subnet instances to access the internet
+
+Blocks inbound traffic from internet
+
+🔹 Round 5: DevOps & Automation
+Q1️⃣4️⃣ Write a shell script to check if a service is running.
+#!/bin/bash
+if systemctl is-active nginx >/dev/null; then
+  echo "Service is running"
+else
+  echo "Service is stopped"
+fi
+Q1️⃣5️⃣ Why Linux is preferred for Docker?
+Answer:
+
+Uses cgroups
+
+Uses namespaces
+
+Lightweight kernel
+
+Better performance
+
+Q1️⃣6️⃣ What happens when a container crashes?
+Answer:
+
+Container stops
+
+Docker restarts it (if restart policy set)
+
+Kubernetes recreates pod
+
+🔹 Round 6: Real-Time Scenario Questions ⭐
+Q1️⃣7️⃣ Disk is 100% full. What will you do?
+Answer:
+
+df -h
+du -sh /*
+rm old logs
+journalctl --vacuum-time=7d
+Q1️⃣8️⃣ Application is down but EC2 is running. Steps?
+Answer:
+
+Check service status
+
+Check logs
+
+Check disk & memory
+
+Restart service
+
+Check load balancer health check
+
+Q1️⃣9️⃣ Someone deleted an EC2 instance. How do you recover?
+Answer:
+
+Restore from AMI
+
+Restore from EBS snapshot
+
+Use Auto Scaling Group
+
+🔹 HR / Conceptual Questions
+Q2️⃣0️⃣ Why should we hire you as a DevOps Engineer?
+Sample Answer:
+
+I have strong Linux fundamentals, AWS knowledge, and hands-on experience with troubleshooting, automation, and cloud infrastructure. I focus on reliability, security, and performance.
+
+🎯 Final Interview Tips
+✔ Explain step-by-step
+✔ Mention Linux commands
+✔ Show real troubleshooting approach
+✔ Relate Linux with AWS services
+
+Linux scenario-based questions with answers
+
+🔥 Part 1: Linux Scenario-Based Questions (With Answers)
+1️⃣ Server is slow – what will you check?
+Steps:
+top          # CPU & processes
+free -m      # Memory
+df -h        # Disk usage
+iostat       # Disk I/O
+uptime       # Load average
+Expected explanation:
+Check CPU → Memory → Disk → IO → Logs
+
+2️⃣ Disk is 100% full
+df -h
+du -sh /*
+du -sh /var/log/*
+rm -f old_logs
+journalctl --vacuum-time=7d
+Root causes:
+
+Log files
+
+Docker images
+
+Application dumps
+
+3️⃣ Application is down but server is running
+systemctl status app
+journalctl -xe
+netstat -tuln
+Fix:
+Restart service, check ports, check logs
+
+4️⃣ Can’t SSH into EC2 instance
+Checks:
+✔ Security Group (port 22)
+✔ Correct key pair
+✔ Correct username
+✔ Disk not full
+✔ Instance running
+
+5️⃣ Process consuming high CPU
+top
+ps -eo pid,ppid,cmd,%cpu --sort=-%cpu | head
+kill PID
+6️⃣ File accidentally deleted – can you recover?
+Answer:
+
+If open by process → /proc/PID/fd
+
+If backup/snapshot exists → restore
+
+Otherwise ❌ cannot recover
+
+7️⃣ Service not starting after reboot
+systemctl enable service
+systemctl status service
+8️⃣ Port already in use error
+lsof -i :8080
+kill PID
+9️⃣ Website accessible internally but not externally
+Checks:
+✔ Firewall
+✔ Security group
+✔ NACL
+✔ Service listening on 0.0.0.0
+
+netstat -tuln
+🔟 User cannot write to a file
+ls -l file
+chmod 755 file
+chown user:user file
+1️⃣1️⃣ How to find large files
+find / -type f -size +1G
+1️⃣2️⃣ Cron job not running
+crontab -l
+systemctl status crond
+tail -f /var/log/cron
+⭐ DevOps Favorite Scenario
+Docker consuming disk space
+docker system df
+docker system prune -a
+⚡ Part 2: Linux Commands Cheat Sheet for DevOps
+🔹 File & Directory
+ls -lAh
+cd
+pwd
+cp
+mv
+rm -rf
+find
+locate
+🔹 File Viewing
+cat
+less
+more
+head
+tail -f
+🔹 Permissions
+chmod 755 file
+chown user:group file
+umask
+🔹 Process Management
+ps -ef
+top
+htop
+kill
+pkill
+nohup command &
+🔹 Networking
+ip a
+ip r
+ping
+curl
+wget
+ss -tuln
+netstat -tuln
+lsof -i
+🔹 Disk & Memory
+df -h
+du -sh *
+lsblk
+mount
+free -m
+vmstat
+🔹 Services (systemd)
+systemctl start service
+systemctl stop service
+systemctl restart service
+systemctl status service
+systemctl enable service
+🔹 Logs
+/var/log/
+journalctl
+journalctl -xe
+tail -f /var/log/syslog
+🔹 Package Management
+RHEL/CentOS
+yum install
+yum remove
+yum update
+Ubuntu/Debian
+apt install
+apt remove
+apt update
+🔹 Archive & Compression
+tar -czvf file.tar.gz
+tar -xzvf file.tar.gz
+zip
+unzip
+🔹 Environment Variables
+export VAR=value
+env
+printenv
+🔹 Shell Shortcuts (Productivity)
+!!        # last command
+!history
+Ctrl + C
+Ctrl + Z
+Ctrl + R
+🎯 Interview Success Tip
+Interviewers don’t want definitions – they want how you troubleshoot in real life.
