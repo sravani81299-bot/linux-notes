@@ -1,0 +1,167 @@
+Linux Server Monitoring & Backup – Commands List
+1️⃣ User & Group Management
+# Create a group
+sudo groupadd admins
+
+# Create a user and add to group
+sudo useradd -m -G admins user1
+
+# Set password for user
+sudo passwd user1
+
+# Check groups for a user
+groups user1
+
+# Add user to an existing group (if needed)
+sudo usermod -aG admins user1
+
+2️⃣ File & Directory Management
+# Create project folder
+mkdir /project_data
+
+# Make scripts executable
+chmod +x /project_data/system_monitor.sh
+chmod +x /project_data/backup.sh
+
+# View file contents
+cat /project_data/system_monitor.sh
+cat /project_data/backup.sh
+
+3️⃣ Monitoring Script Commands
+# View CPU load
+uptime
+
+# View memory usage
+free -h
+
+# View disk usage
+df -h
+
+# View top processes by CPU
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+
+
+Sample command to test script manually:
+
+/project_data/system_monitor.sh >> /root/system_monitor.log 2>&1
+tail /root/system_monitor.log
+
+4️⃣ Backup Script Commands
+# Create backup of /home directory
+tar -czf /backup/home_backup_$(date +%F).tar.gz /home
+
+# Delete backups older than 7 days
+find /backup -type f -name "*.tar.gz" -mtime +7 -delete
+
+# View backup log
+cat /backup/backup.log
+
+
+Manual test:
+
+/project_data/backup.sh
+
+5️⃣ Cron Jobs
+# Edit root crontab
+sudo crontab -e
+
+# Cron entries used:
+# System monitoring every 30 mins
+*/30 * * * * /project_data/system_monitor.sh >> /root/system_monitor.log 2>&1
+
+# Daily backup at 2 AM
+0 2 * * * /project_data/backup.sh
+
+
+Check cron jobs:
+
+sudo crontab -l
+
+# View recent cron executions
+grep CRON /var/log/syslog | tail
+
+6️⃣ Firewall (UFW) Commands
+# Enable firewall
+sudo ufw enable
+
+# Check firewall status
+sudo ufw status verbose
+
+# Allow SSH (port 22)
+sudo ufw allow ssh
+
+# Allow HTTP (port 80)
+sudo ufw allow 80
+
+# Allow HTTPS (port 443)
+sudo ufw allow 443
+
+7️⃣ SSH Security
+# Edit SSH configuration
+sudo nano /etc/ssh/sshd_config
+
+# Disable root login
+PermitRootLogin no
+
+# Restart SSH service to apply changes
+sudo systemctl restart ssh
+
+8️⃣ Systemd Service (Optional)
+# Create service file
+sudo nano /etc/systemd/system/system_monitor.service
+
+# Example content
+[Unit]
+Description=System Monitoring Service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/project_data/system_monitor.sh
+
+[Install]
+WantedBy=multi-user.target
+
+# Reload systemd to apply changes
+sudo systemctl daemon-reload
+
+# Enable and start service
+sudo systemctl enable system_monitor
+sudo systemctl start system_monitor
+
+# Check service status
+sudo systemctl status system_monitor
+
+# Disable systemd service (if using cron instead)
+sudo systemctl disable system_monitor
+
+9️⃣ Viewing Logs and Outputs
+# Monitoring logs
+sudo tail /root/system_monitor.log
+
+# Backup logs
+cat /backup/backup.log
+
+# Firewall status
+sudo ufw status verbose
+
+# Cron job logs
+grep CRON /var/log/syslog | tail
+
+✅ Summary of Tools/Commands Used
+
+Users & groups: useradd, groupadd, usermod, passwd, groups
+
+Files & directories: mkdir, chmod, cat, nano
+
+Monitoring: uptime, free, df, ps
+
+Backup: tar, find
+
+Cron: crontab -e, crontab -l, grep CRON /var/log/syslog
+
+Firewall: ufw commands
+
+SSH security: nano /etc/ssh/sshd_config, systemctl restart ssh
+
+Systemd: systemctl commands
