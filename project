@@ -1,1 +1,225 @@
+1. Project Overview
 
+Objective:
+
+Implement a Linux server monitoring system.
+
+Automate system backups.
+
+Secure the server using SSH hardening and firewall.
+
+Tools Used:
+
+Ubuntu VM
+
+Bash scripting
+
+Cron jobs & systemd services
+
+UFW firewall
+
+Key Features:
+
+System health monitoring (CPU, memory, disk, processes)
+
+Automated daily backups with retention policy
+
+Systemd service for monitoring
+
+SSH hardening & firewall security
+
+2. Architecture Diagram
+User (SSH)
+   |
+   v
+Ubuntu VM
+   |
+-----------------------------------------
+| System Monitor | Backup Script | Logs  |
+-----------------------------------------
+   |
+Systemd Service / Cron Jobs
+   |
+   v
+/var/log or /root/logs, /backup
+
+
+Monitoring script writes to /root/system_monitor.log
+
+Backup script writes to /backup with retention policy
+
+Cron jobs handle automation
+
+systemd service ensures monitoring runs safely
+
+3. Step-by-Step Implementation
+STEP 1: Linux Monitoring Script
+
+Location: /project_data/system_monitor.sh
+
+#!/bin/bash
+echo "===== System Health Report ====="
+echo "Date: $(date)"
+
+echo "CPU Load:"
+uptime
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h
+
+echo "Top Processes:"
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+
+
+Make executable:
+
+chmod +x /project_data/system_monitor.sh
+
+
+Test manually:
+
+/project_data/system_monitor.sh >> /root/system_monitor.log 2>&1
+tail /root/system_monitor.log
+
+STEP 2: Automate with Cron
+crontab -e
+
+
+Add:
+
+*/30 * * * * /project_data/system_monitor.sh >> /root/system_monitor.log 2>&1
+
+
+Runs every 30 minutes
+
+Uses absolute path (cron-safe)
+
+STEP 3: Automated Backup System
+
+Backup Script: /project_data/backup.sh
+
+#!/bin/bash
+DATE=$(date +%F)
+LOGFILE=/backup/backup.log
+
+echo "===== Backup Started: $(date) =====" >> $LOGFILE
+tar -czf /backup/home_backup_$DATE.tar.gz /home >> $LOGFILE 2>&1
+find /backup -type f -name "*.tar.gz" -mtime +7 -delete
+echo "===== Backup Completed: $(date) =====" >> $LOGFILE
+echo "" >> $LOGFILE
+
+
+Make executable:
+
+chmod +x /project_data/backup.sh
+
+
+Cron job (daily at 2 AM):
+
+0 2 * * * /project_data/backup.sh
+
+STEP 4: Systemd Service
+
+Service File: /etc/systemd/system/system_monitor.service
+
+[Unit]
+Description=System Monitoring Service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/project_data/system_monitor.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+Reload systemd:
+
+systemctl daemon-reload
+systemctl enable system_monitor
+systemctl start system_monitor
+systemctl status system_monitor
+
+STEP 5: Security Hardening
+
+Disable root login:
+
+nano /etc/ssh/sshd_config
+PermitRootLogin no
+systemctl restart ssh
+
+
+Enable firewall:
+
+ufw allow ssh
+ufw enable
+ufw status verbose
+
+4. Logs & Testing
+
+Monitoring logs: /root/system_monitor.log
+
+Backup logs: /backup/backup.log
+
+Firewall: ufw status verbose
+
+Cron logs: /var/log/syslog | grep CRON
+
+5. Resume-Ready Achievements
+
+Automated Linux system monitoring and backups
+
+Secured server with SSH hardening and UFW
+
+Implemented cron jobs and systemd service for automation
+
+Managed log rotation and retention
+
+6. Project Diagrams
+
+System Flow:
+
+User (SSH)
+   |
+   v
+Ubuntu VM
+   |
+-----------------------------------------
+| System Monitor | Backup Script | Logs  |
+-----------------------------------------
+   |
+Cron Jobs / systemd Service
+   |
+   v
+/backup & /root/logs
+
+
+Systemd Flow:
+
+Boot
+  ↓
+Kernel
+  ↓
+systemd
+  ↓
+network.target
+  ↓
+multi-user.target
+  ↓
+system_monitor.service (oneshot)
+  ↓
+ExecStart → system_monitor.sh
+
+7. Conclusion
+
+Linux server monitoring and backup automation fully implemented
+
+Cron and systemd provide reliable automation
+
+SSH and firewall hardening ensures security
+
+Logs and backups are properly retained and accessible
