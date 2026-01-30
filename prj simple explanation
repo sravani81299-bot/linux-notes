@@ -1,0 +1,123 @@
+Linux Server Monitoring & Backup Project – Simple Explanation
+1️⃣ Project Objective
+
+Monitor server health automatically (CPU, memory, disk, processes).
+
+Backup user data daily.
+
+Secure the server using SSH and firewall.
+
+Automate everything with cron (and optionally systemd).
+
+2️⃣ Users & Permissions
+
+root → full admin access, runs cron jobs, manages firewall, owns logs and scripts.
+
+user1 → normal user for SSH login, limited access to system.
+
+admins group → optional group for shared access if more users are added.
+
+Principle: separation of privileges and least privilege access.
+
+3️⃣ System Monitoring
+
+Script: /project_data/system_monitor.sh
+
+Collects system health information: CPU, memory, disk usage, top processes.
+
+Output logged to /root/system_monitor.log.
+
+Cron job runs every 30 minutes:
+
+*/30 * * * * /project_data/system_monitor.sh >> /root/system_monitor.log 2>&1
+
+
+This ensures server status is automatically recorded for analysis.
+
+4️⃣ Automated Backup
+
+Script: /project_data/backup.sh
+
+Runs daily at 2 AM via cron:
+
+0 2 * * * /project_data/backup.sh
+
+
+Backs up /home directory to /backup as a compressed file:
+
+/backup/home_backup_<DATE>.tar.gz
+
+
+Keeps only the last 7 days of backups. Older backups are deleted.
+
+Logs operations in /backup/backup.log.
+
+Ensures data safety and retention without manual intervention.
+
+5️⃣ Server Security
+
+SSH Hardening: disable root login for SSH:
+
+PermitRootLogin no
+
+
+Firewall (UFW): restricts access to only necessary ports:
+
+sudo ufw allow ssh
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw enable
+
+
+Prevents unauthorized access to the server.
+
+6️⃣ Automation Tools
+
+Cron jobs → schedule monitoring every 30 mins and backups daily.
+
+systemd service → optional automation tool for monitoring script (disabled in your final setup).
+
+Shows understanding of both classic and modern Linux task automation.
+
+7️⃣ Logs & Verification
+
+Monitoring logs: /root/system_monitor.log
+
+Backup logs: /backup/backup.log
+
+Firewall status: sudo ufw status verbose
+
+Cron jobs check: sudo crontab -l or grep CRON /var/log/syslog
+
+Allows you to verify everything is running as expected.
+
+8️⃣ What You Learned / Skills Demonstrated
+
+Linux user/group management and permissions.
+
+Bash scripting for automation.
+
+Cron scheduling for repetitive tasks.
+
+System monitoring (CPU, memory, disk, processes).
+
+Automated backups with retention.
+
+Server security using firewall (UFW) and SSH hardening.
+
+Optional systemd service creation.
+
+Shows practical DevOps & Linux administration skills.
+
+9️⃣ How to Explain in Interviews
+
+“This project automates server monitoring and backups.
+It uses cron to run a monitoring script every 30 minutes and a backup script daily at 2 AM.
+The /home directory is backed up as a compressed .tar.gz archive with a 7-day retention policy.
+The server is secured with UFW firewall rules and SSH hardening.
+I used one SSH user for login and root for administrative tasks, demonstrating Linux permission management.
+The project shows both automation and security best practices.”
+
+If you want, I can also make a small visual diagram of your project showing:
+
+SSH user → Cron → Scripts → Logs & Backups → Firewall
