@@ -1,0 +1,150 @@
+Mock Interview: Linux Monitoring & Backup Automation Project
+Q1️⃣ Can you explain your project in simple terms?
+
+Interviewer:
+Tell me about the Linux project you worked on.
+
+Your Answer (Model):
+
+I implemented a Linux server monitoring and backup automation system on an Ubuntu VM.
+The system monitors CPU, memory, disk usage, and top processes using a Bash script, logs the output, and runs automatically via cron and systemd.
+I also automated daily backups with a retention policy and secured the server using SSH hardening and UFW firewall.
+
+Q2️⃣ Why did you choose Bash scripting for monitoring?
+
+Interviewer:
+Why Bash instead of Python or another language?
+
+Your Answer:
+
+Bash is lightweight, natively available on Linux, and ideal for system-level tasks.
+Since the monitoring relies on standard Linux commands like uptime, free, df, and ps, Bash allows direct execution without additional dependencies.
+
+Q3️⃣ How does your monitoring system work?
+
+Interviewer:
+Walk me through how monitoring happens step by step.
+
+Your Answer:
+
+The monitoring script collects system metrics like CPU load, memory usage, disk usage, and running processes.
+The script writes this output to /root/system_monitor.log.
+Cron runs the script every 30 minutes, and systemd ensures the script can be executed reliably when required.
+
+Q4️⃣ Why did you use both cron and systemd?
+
+Interviewer:
+Isn’t cron enough? Why systemd also?
+
+Your Answer:
+
+Cron is ideal for time-based scheduling, but systemd provides better service control, logging, and dependency handling.
+I used systemd to demonstrate service management and to ensure the monitoring script can be executed in a controlled, managed way aligned with system boot targets.
+
+Q5️⃣ Why is your systemd service Type=oneshot?
+
+Interviewer:
+Why not a long-running service?
+
+Your Answer:
+
+The monitoring script runs, collects data, and exits—it doesn’t need to stay running.
+Type=oneshot is ideal for short-lived tasks and avoids unnecessary resource usage.
+
+Q6️⃣ How do you verify that cron jobs are running correctly?
+
+Interviewer:
+How do you confirm cron is actually executing?
+
+Your Answer:
+
+I verify cron execution by checking /var/log/syslog for CRON entries, reviewing timestamps in log files, and confirming updated output in /root/system_monitor.log and /backup/backup.log.
+
+Q7️⃣ Explain your backup strategy.
+
+Interviewer:
+How does your backup system work?
+
+Your Answer:
+
+A Bash script creates a compressed tar archive of the /home directory daily at 2 AM.
+Each backup is timestamped, logged, and stored in /backup.
+A retention policy deletes backups older than 7 days to prevent disk exhaustion.
+
+Q8️⃣ Why did you implement a retention policy?
+
+Interviewer:
+What problem does retention solve?
+
+Your Answer:
+
+Without retention, backups would grow indefinitely and fill disk space.
+The retention policy ensures only recent backups are kept, balancing data safety and storage efficiency.
+
+Q9️⃣ How do you confirm backups are valid?
+
+Interviewer:
+How do you know backups are usable?
+
+Your Answer:
+
+I verify backup creation by checking archive files and logs.
+I can also test integrity by listing archive contents using tar -tzf without extracting the full backup.
+
+🔟 How did you secure the server?
+
+Interviewer:
+What security measures did you implement?
+
+Your Answer:
+
+I disabled SSH root login to reduce brute-force risk and enforced user-based access.
+I enabled UFW firewall and allowed only SSH traffic, following the principle of least privilege.
+
+Q1️⃣1️⃣ What would happen if the disk becomes full?
+
+Interviewer:
+How does your system handle disk space issues?
+
+Your Answer:
+
+Disk usage is continuously monitored and logged.
+Backup retention prevents uncontrolled growth, and monitoring logs help identify disk pressure early.
+This setup can easily be extended to alerting if disk usage crosses thresholds.
+
+Q1️⃣2️⃣ How would you improve this project for production?
+
+Interviewer:
+What would you add next?
+
+Your Answer:
+
+I would add log rotation using logrotate, alerting via email or Slack for threshold breaches, encryption for backups, offsite storage like S3, and configuration management using Ansible.
+
+Q1️⃣3️⃣ What Linux concepts does this project demonstrate?
+
+Interviewer:
+What skills does this project prove?
+
+Your Answer:
+
+It demonstrates Bash scripting, cron scheduling, systemd services, logging, backup strategies, security hardening, Linux file system management, and operational troubleshooting.
+
+Q1️⃣4️⃣ How is this relevant to a DevOps or Cloud role?
+
+Interviewer:
+Why should we care about this project?
+
+Your Answer:
+
+This project reflects real-world DevOps responsibilities—monitoring system health, automating backups, securing servers, and ensuring reliability using native Linux tools.
+
+Q1️⃣5️⃣ Final Trick Question 😏
+
+Interviewer:
+What happens if cron stops running?
+
+Your Answer:
+
+Monitoring logs would stop updating.
+I’d troubleshoot by checking the cron service status, reviewing system logs, validating script permissions, and confirming absolute paths in the cron configuration.
