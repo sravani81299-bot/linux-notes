@@ -238,3 +238,40 @@ ls -l
 ⭐ One-Line Interview Answer
 
 A hard link points directly to the inode and remains valid even if the original file is deleted, while a soft link points to the file path and breaks if the original file is removed.
+
+
+Definition (Interview Answer):
+👉 umask (User Mask) defines the default permission that is REMOVED when a new file or directory is created.
+
+Simple Explanation
+
+Linux has default maximum permissions
+
+Files → 666 (rw-rw-rw-)
+
+Directories → 777 (rwxrwxrwx)
+
+umask subtracts permissions from these defaults
+
+Formula (VERY IMPORTANT)
+Final Permission = Default Permission – umask
+
+Default umask Values
+User Type	umask
+Normal user	002
+Root	022
+Example 1️⃣ (Most Common Interview One)
+umask = 022
+File:
+666 - 022 = 644 → rw-r--r--
+
+Directory:
+777 - 022 = 755 → rwxr-xr-x
+
+Do files and directories use umask by default?
+
+👉 YES.
+Whenever you create a new file or directory, Linux automatically applies the umask to decide its default permissions.
+
+Think of umask like a safety filter 🛡️
+Even if full access is possible, umask removes dangerous permissions by default.
