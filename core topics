@@ -142,3 +142,99 @@ pwd
 echo
 
 history
+
+What is a Link in Linux?
+
+A link is a reference (shortcut) to a file.
+
+There are two types:
+
+Hard link
+
+Soft link (Symbolic link)
+
+🔹 Hard Link
+Definition:
+
+👉 A hard link is another name for the same file (same inode).
+
+Explanation:
+
+Points directly to the inode
+
+Original file and hard link are equal
+
+Deleting one does not delete data
+
+Example:
+ln file1 file1_hard
+
+Key Points:
+
+Shares same inode number
+
+Data remains until all hard links are deleted
+
+Cannot link directories
+
+Cannot cross file systems
+
+🔹 Soft Link (Symbolic Link)
+Definition:
+
+👉 A soft link is a shortcut that points to the file name/path.
+
+Explanation:
+
+Has a different inode
+
+Points to the original file path
+
+If original file is deleted → link breaks
+
+Example:
+ln -s file1 file1_soft
+
+Key Points:
+
+Different inode number
+
+Can link directories
+
+Can cross file systems
+
+Breaks if original file is removed
+
+🔥 Hard Link vs Soft Link (Interview Table)
+Feature	Hard Link	Soft Link
+Inode	Same	Different
+File type	Regular file	Shortcut
+If original deleted	Works	Broken
+Cross filesystem	❌ No	✅ Yes
+Link directories	❌ No	✅ Yes
+Size	Same as file	Very small
+🔹 Real-World Example
+Hard Link:
+
+Think of two names for the same person 👤
+Deleting one name doesn’t remove the person.
+
+Soft Link:
+
+Think of a Google Maps shortcut 📍
+If the address changes, shortcut fails.
+
+🔹 Commands to Check
+ls -li
+
+
+👉 Shows inode numbers (same inode = hard link)
+
+ls -l
+
+
+👉 Shows soft link (l) and arrow (->)
+
+⭐ One-Line Interview Answer
+
+A hard link points directly to the inode and remains valid even if the original file is deleted, while a soft link points to the file path and breaks if the original file is removed.
