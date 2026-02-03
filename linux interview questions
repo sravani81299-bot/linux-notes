@@ -48,12 +48,15 @@ rm → delete
 
 Q8. Hard link vs Soft link
 Hard Link	Soft Link
-Same inode	Different inode
-Cannot cross FS	Can cross FS
-Works if original deleted	Breaks if original deleted
+Same inode	                               Different inode
+Cannot cross FS	                           Can cross FS
+Works if original deleted	                 Breaks if original deleted
+
 Q9. How do you find files?
 find / -name file.txt
 locate file.txt
+
+
 3️⃣ File Permissions & Ownership
 Q10. Explain Linux permissions
 r (4) – read
