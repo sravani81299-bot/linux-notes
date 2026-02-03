@@ -1,0 +1,73 @@
+1. Process Management
+
+Definition:
+Process management is the function of the Linux kernel that creates, schedules, executes, and terminates processes.
+
+Explanation:
+
+A process is a running program
+
+Kernel decides which process gets CPU and for how long
+
+Handles multitasking and process priority
+
+Example:
+Running top shows all active processes.
+
+2. Memory Management
+
+Definition:
+Memory management controls how RAM is allocated and released for running processes.
+
+Explanation:
+
+Allocates memory when a program starts
+
+Frees memory when a program ends
+
+Uses virtual memory & swap to handle low RAM situations
+
+Example:
+Linux uses swap space when RAM is full.
+
+3. File System Management
+
+Definition:
+File system management organizes and manages how data is stored, accessed, and protected on disks.
+
+Explanation:
+
+Manages files, directories, and permissions
+
+Supports file systems like ext4, xfs
+
+Controls read/write operations
+
+Example:
+/home, /etc, /var are part of Linux file system hierarchy.
+
+4. Device Control
+
+Definition:
+Device control allows the kernel to communicate with hardware devices using drivers.
+
+Explanation:
+
+Handles devices like keyboard, disk, network card
+
+Uses device drivers for hardware interaction
+
+In Linux, devices are treated as files
+
+Example:
+Hard disk appears as /dev/sda.
+
+Ultra-Short Interview Version (1 line each)
+
+Process: Manages running programs
+
+Memory: Manages RAM usage
+
+File system: Manages files & storage
+
+Device: Manages hardware communication
