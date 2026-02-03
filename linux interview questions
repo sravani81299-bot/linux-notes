@@ -6,20 +6,17 @@ Expected:
 Linux is an open-source Unix-like OS kernel used in servers, cloud platforms, containers, and embedded systems.
 
 Q2. Difference between Linux and Unix?
-Linux	Unix
-Open-source	Mostly proprietary
-Free	Paid
-Large community	Vendor-controlled
+Linux	               Unix
+Open-source	         Mostly proprietary
+Free	               Paid
+Large community	     Vendor-controlled
+
 Q3. What is the Linux Kernel?
 Expected:
 Core of OS responsible for:
-
 Process management
-
 Memory management
-
 Device drivers
-
 System calls
 
 Q4. What is a shell?
@@ -36,6 +33,7 @@ Directory	Purpose
 /home	User home dirs
 /tmp	Temporary files
 /opt	Optional software
+
 2️⃣ File & Directory Management
 Q6. How do you list files?
 ls -l
