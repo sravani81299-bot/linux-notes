@@ -71,3 +71,74 @@ Memory: Manages RAM usage
 File system: Manages files & storage
 
 Device: Manages hardware communication
+
+What is Shell?
+
+Definition (Interview Answer):
+👉 A shell is a command-line interpreter that acts as an interface between the user and the Linux kernel.
+
+Simple Explanation
+
+User types a command
+
+Shell understands the command
+
+Shell sends the request to the kernel
+
+Kernel executes it and returns output
+
+Simple Diagram
+User
+ ↓
+Shell (bash)
+ ↓
+Kernel
+ ↓
+Hardware
+
+Real-World Example
+
+Think of the shell as a translator 🗣️:
+
+User speaks commands
+
+Kernel understands system calls
+
+Shell converts commands into kernel-understandable actions
+
+Common Shells in Linux
+Shell	Description
+bash	Most common (default)
+sh	Original shell
+zsh	Advanced features
+ksh	Korn shell
+fish	User-friendly shell
+Shell vs Terminal (Interview Trap)
+Shell	Terminal
+Program that executes commands	Application to type commands
+Interprets commands	Displays input/output
+Example: bash	Example: GNOME Terminal
+Shell Script
+
+👉 A shell script is a file containing multiple Linux commands executed automatically.
+
+Example:
+
+#!/bin/bash
+echo "Hello Linux"
+
+1-Line Interview Answer
+
+Shell is a command-line interface that allows users to communicate with the Linux kernel by executing commands.
+
+Common Shell Commands
+
+ls
+
+cd
+
+pwd
+
+echo
+
+history
